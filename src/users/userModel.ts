@@ -1,9 +1,9 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 
-import db from '../config/dbconfig';
+import { sequelize as db } from '../config/dbconfig';
 
 interface UserAttributes {
-    id: Number;
+    id: number;
     firstName: string;
     lastName: string;
     email: string;
