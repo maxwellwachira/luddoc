@@ -1,14 +1,15 @@
 import dotenv from "dotenv"
-import { PasswordResetModel } from "./authModel";;
+import { PasswordResetModel } from "./models/PasswordResetModel";;
+import { AccountActivationModel } from "./models/AccountActivationModel";
 
 dotenv.config();
 
-interface PasswordResetData {
+interface TokenData {
     token: string;
     UserId: number;
 }
 
-const addToken = async ({ token, UserId }: PasswordResetData) => {
+const addToken = async ({ token, UserId }: TokenData) => {
 
     return await PasswordResetModel.create({
         token,
@@ -16,8 +17,25 @@ const addToken = async ({ token, UserId }: PasswordResetData) => {
     });
 }
 
-const findToken =  async ({ token, UserId }: PasswordResetData) => {
+const findToken =  async ({ token, UserId }: TokenData) => {
     return await PasswordResetModel.findOne({
+        where: {
+            token,
+            UserId
+        }
+    })
+}
+
+const addAccountToken = async ({ token, UserId }: TokenData) => {
+
+    return await AccountActivationModel.create({
+        token,
+        UserId
+    });
+}
+
+const findAccountToken =  async ({ token, UserId }: TokenData) => {
+    return await AccountActivationModel.findOne({
         where: {
             token,
             UserId
@@ -28,5 +46,7 @@ const findToken =  async ({ token, UserId }: PasswordResetData) => {
 
 export {
     addToken,
-    findToken
+    addAccountToken,
+    findToken,
+    findAccountToken
 };

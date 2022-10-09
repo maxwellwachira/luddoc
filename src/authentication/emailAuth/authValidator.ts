@@ -41,6 +41,19 @@ class AuthValidator {
                 .withMessage('Minimum Password length is 5'),
         ];
     }
+
+    checkUserActivate() {
+        return [
+            body('UserId')
+                .notEmpty()
+                .withMessage('email should not be empty')
+                .isNumeric()
+                .withMessage('Provide a valid User id'),
+            body('token')
+                .notEmpty()
+                .withMessage('token should not be empty'),
+        ];
+    }
 }
 
 export default new AuthValidator();
