@@ -77,7 +77,8 @@ const findUserById = async (id: number) => {
     return await UserModel.findOne({
         where: {
             id,
-            disabled: false
+            disabled: false,
+
         }
     });
 }
@@ -86,7 +87,7 @@ const findUserByEmail = async (email: string) => {
     return await UserModel.findOne({
         where: {
             email,
-            disabled: false
+            disabled: false,
         }
     });
 }

@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import argon2 from "argon2";
+import crypto from 'crypto';
 
 import {
     addUser,
@@ -9,7 +11,10 @@ import {
     findUserByEmail,
     findUserById,
 } from './userService';
-
+import { addAccountToken } from '../authentication/emailAuth/authService';
+import { sendMail } from '../email/sendEmail';
+import emailTemplates from '../email/emailTemplates';
+import { urls } from '../constants/urls';
 
 const createUser = async (req: Request, res: Response) => {
     const { firstName, lastName, email, password } = req.body;
@@ -17,12 +22,36 @@ const createUser = async (req: Request, res: Response) => {
         //check if user exists
         const user = await findUserByEmail(email);
         if (user) return res.status(400).json({message: "user already exists"});
+        //hash password
+        const hashedPassword = await argon2.hash(password);
         //add user if user does not exist
-        const record  = await addUser({firstName, lastName, email, password});
+        const record  = await addUser({firstName, lastName, email, password: hashedPassword});
+        //get userId
+        const userObject = record?.toJSON();
+        //Add activation token to db
+        const token = crypto.randomBytes(32).toString('hex');
+        await addAccountToken({token, UserId: Number(userObject.id)});
+        //send email to user
+        const url = `${urls.clientUrl}/auth/activation?token=${token}&id=${userObject.id}`;
+        await sendMail({to: email, subject: 'Account Activation', html: emailTemplates.registration(firstName, 'Account Activation', url)});
+       
         return res.status(201).json({record, message:"success"});
     } catch (error) {
         return res.status(500).json({message:"error", error});
     }
+}
+
+const getUserMe =  async (req: Request, res: Response) => {
+    const id = res.locals.userId;
+
+    try {
+        const user = await findUserById(Number(id));
+        if (!user) return res.status(404).json({message: `user with id = ${id} does not exists`});
+        return res.json(user);
+    } catch (error) {
+        return res.status(500).json({message:"error", error});
+    }
+
 }
 
 const getAllUsers = async (req: Request, res: Response) => {
@@ -123,6 +152,7 @@ export {
     getAllTutors,
     getAllUsers,
     getOneUser,
+    getUserMe,
     removeUser,
     updateUser
 };

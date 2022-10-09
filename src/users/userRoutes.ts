@@ -6,16 +6,22 @@ import {
     getAllTutors,
     getAllUsers,
     getOneUser,
+    getUserMe,
     removeUser,
     updateUser
 } from './userController';
+import { authMiddleware } from '../middleware/authMiddleware';
 
 const router = express.Router();
 
 //create user
 router.post('/', createUser);
+//protected routes
+router.use(authMiddleware);
 //Get all users
 router.get('/', getAllUsers);
+//user me
+router.get('/me', getUserMe)
 //Get all students
 router.get('/students', getAllStudents);
 //Get all tutors
