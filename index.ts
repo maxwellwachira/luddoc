@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import cors from "cors";
 import dotenv from 'dotenv';
 
 //Sequelize Database Connector
@@ -12,6 +13,10 @@ dotenv.config();
 
 const app: Application = express();
 const port = process.env.PORT;
+
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cors());
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
