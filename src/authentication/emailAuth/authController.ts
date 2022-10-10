@@ -29,7 +29,7 @@ const signIn = async (req: Request, res: Response) => {
         const isPasswordCorrect = await argon2.verify(userPassword, password);
         if (!isPasswordCorrect) return res.status(400).json({message: "wrong password"});
         //return tokens to user
-        const accessToken = jwt.sign({ email: userEmail, id }, SECRET_KEY, { expiresIn: Number(EXPIRE_TIME) }); 
+        const accessToken = jwt.sign({ email: userEmail, id }, SECRET_KEY, { expiresIn: EXPIRE_TIME }); 
         const refreshToken = jwt.sign({ email: userEmail, id }, REFRESH_SECRET_KEY, { expiresIn: REFRESH_EXPIRE_TIME }); 
         return res.status(200).json({ message: "success", accessToken,  refreshToken});
 
