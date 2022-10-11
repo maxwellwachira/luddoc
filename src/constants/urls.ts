@@ -1,3 +1,3 @@
 export const urls = {
-    clientUrl: 'http://localhost:3000'
+    clientUrl: 'https://luddoc-institute.com'
 }
