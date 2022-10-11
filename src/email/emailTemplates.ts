@@ -57,7 +57,7 @@ const emailTemplates = {
                         <h3 style="margin-bottom: 100px; font-size: 24px; color: black;">Dear Luddoc, you have received the following message from contact form:</h3>
                         <h4>From: ${from}</h4>
                         <h4>Subject: ${subject} </h4>
-                        <h4>Message ${message} </h4>
+                        <h4>Message: ${message} </h4>
                         <p style="display: block; margin: 0 auto; border: none; background-color: #CEA028; color: white; width: 50%; line-height: 24px; padding: 10px; font-size: 20px; border-radius: 10px; cursor: pointer; text-decoration: none;"
                         >
                             That's all!!
