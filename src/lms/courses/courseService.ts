@@ -34,7 +34,8 @@ const findAllCourses = async (page: number, limit: number) => {
 
     const { count, rows } = await CourseModel.findAndCountAll({
         limit,
-        offset
+        offset,
+        order: [['id', 'ASC']]
     });
     const totalPages = Math.ceil(count / limit);
 
@@ -54,7 +55,8 @@ const findAllCoursesInCategory = async (page: number, limit: number , CategoryId
             CategoryId
         },
         limit,
-        offset
+        offset,
+        order: [['id', 'ASC']]
     });
     const totalPages = Math.ceil(count);
 

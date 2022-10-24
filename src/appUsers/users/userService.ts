@@ -23,7 +23,8 @@ const findAllUsers = async (page: number, limit: number) => {
 
     const { count, rows } = await UserModel.findAndCountAll({
         limit,
-        offset
+        offset,
+        order: [['id', 'ASC']]
     });
     const totalPages = Math.ceil(count);
 
@@ -43,7 +44,8 @@ const findAllStudents = async (page: number, limit: number) => {
             role: "student"
         },
         limit,
-        offset
+        offset,
+        order: [['id', 'ASC']]
     });
     const totalPages = Math.ceil(count / limit);
 
@@ -63,7 +65,8 @@ const findAllTutors = async (page: number, limit: number) => {
             role: "tutor"
         },
         limit,
-        offset
+        offset,
+        order: [['id', 'ASC']]
     });
     const totalPages = Math.ceil(count);
 
