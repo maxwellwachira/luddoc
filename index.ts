@@ -18,6 +18,8 @@ import emailRoutes from "./src/email/emailRoutes";
 import categoryRoutes from "./src/lms/categories/categoryRoutes";
 //course routes
 import courseRoutes from "./src/lms/courses/courseRoutes";
+//uploads
+import uploadRoutes from "./src/lms/uploads/uploadsRoutes"
 
 dotenv.config();
 
@@ -45,6 +47,7 @@ app.use('/zoom', ZoomRoutes);
 app.use('/email',emailRoutes);    
 app.use('/category', categoryRoutes);
 app.use('/course', courseRoutes);
+app.use('/upload', uploadRoutes);
 
 app.listen(port,() => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
