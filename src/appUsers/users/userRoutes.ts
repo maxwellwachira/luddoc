@@ -21,7 +21,7 @@ router.post('/', createUser);
 //Get all users
 router.get('/', getAllUsers);
 //user me
-router.get('/me', getUserMe)
+router.get('/me', authMiddleware, getUserMe)
 //Get all students
 router.get('/students', getAllStudents);
 //Get all tutors
