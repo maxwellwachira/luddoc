@@ -6,7 +6,7 @@ import moment from "moment";
 import dotenv from 'dotenv';
 
 import { addToken,findToken, findAccountToken, addAccountToken } from "./authService"
-import { findUserByEmail, findUserById } from "../../users/userService";
+import { findUserByEmail, findUserById } from "../../appUsers/users/userService";
 import { sendMail } from "../../email/sendEmail";
 import emailTemplates from "../../email/emailTemplates";
 import { urls } from "../../constants/urls";
