@@ -22,12 +22,14 @@ const createUpload = async (req: Request, res: Response) => {
         //check if upload exists
         const upload = await findUploadByTitle(file.name);
         if (upload) return res.status(400).json({message: "upload already exists"});
+        const fileNameArr= file.name.split(".");
+        const fileExtension = fileNameArr[fileNameArr.length - 1];
         //upload if file does not exists
-        const uploadFileName = `${crypto.randomUUID()}.${file.name.split("/")[1]}`;
+        const uploadFileName = `${crypto.randomUUID()}.${fileExtension}`;
         const uploadUrl = `public/uploads/files/${uploadFileName}`;
         file.mv(uploadUrl);
         //Add upload if does not exists
-        const record  = await addUpload({fileName: file.name,  CategoryId, fileType:file.mimetype.split("/")[0], fileSize:file.size, filePath: uploadUrl, UserId});
+        const record  = await addUpload({fileName: file.name,  fileExtension, CategoryId, fileType:file.mimetype.split("/")[0], fileSize:file.size, filePath: uploadUrl, UserId});
         return res.status(201).json({record, message:"success"});
     } catch (error) {
         console.log(error)

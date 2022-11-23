@@ -7,6 +7,7 @@ import { UserModel } from '../../appUsers/users/userModel';
 interface UploadsAttributes {
     id: number;
     fileName: string;
+    fileExtension: string;
     fileType: string;
     fileSize: number;
     filePath: string;
@@ -31,6 +32,11 @@ UploadModel.init({
     type: DataTypes.STRING,
     allowNull: false,
     field: "file_name"
+   },
+   fileExtension:{
+    type: DataTypes.STRING,
+    allowNull: false,
+    field: "file_extension"
    },
    CategoryId: {
     type: DataTypes.BIGINT,

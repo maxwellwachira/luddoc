@@ -4,6 +4,7 @@ import { UploadModel } from "./uploadsModel";
 
 interface UploadData {
     fileName: string;
+    fileExtension: string;
     CategoryId: number;
     fileType: string;
     fileSize: number;
@@ -11,9 +12,10 @@ interface UploadData {
     UserId: number;
 }
 
-const addUpload = async ({ fileName,  CategoryId, fileType, fileSize, filePath, UserId }: UploadData) => {
+const addUpload = async ({ fileName, fileExtension,  CategoryId, fileType, fileSize, filePath, UserId }: UploadData) => {
     return await UploadModel.create({
         fileName,
+        fileExtension,
         CategoryId,
         fileType,
         fileSize,
