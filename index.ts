@@ -18,8 +18,12 @@ import emailRoutes from "./src/email/emailRoutes";
 import categoryRoutes from "./src/lms/categories/categoryRoutes";
 //course routes
 import courseRoutes from "./src/lms/courses/courseRoutes";
-//uploads
-import uploadRoutes from "./src/lms/uploads/uploadsRoutes"
+//upload routes
+import uploadRoutes from "./src/lms/uploads/uploadsRoutes";
+//Enrolment ROutes
+import enrolmentRoutes from "./src/lms/enrolments/enrolmentRoutes";
+//Mpesa
+import mpesaRoutes from "./src/mpesa/mpesaRoutes";
 
 dotenv.config();
 
@@ -48,6 +52,8 @@ app.use('/email',emailRoutes);
 app.use('/category', categoryRoutes);
 app.use('/course', courseRoutes);
 app.use('/upload', uploadRoutes);
+app.use('/enrolment', enrolmentRoutes);
+app.use('/daraja', mpesaRoutes);
 
 app.listen(port,() => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
