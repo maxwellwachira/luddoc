@@ -13,7 +13,7 @@ interface SendMailData {
 const apiKey = process.env.MAILJET_API_KEY as string;
 const apiSecret = process.env.MAILJET_API_SECRET as string;
 
-const mailjet =Mailjet.apiConnect(
+const mailjet = Mailjet.apiConnect(
    apiKey,
    apiSecret
 );

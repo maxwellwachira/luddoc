@@ -71,7 +71,7 @@ const forgotPassword =  async (req: Request, res: Response) => {
        //add token to db
        const record  = await addToken({token, UserId});
        //Send Email, url to have token and Userid
-       const url = `http://localhost:3000/auth/reset-password?token=${token}&email=${email}&id=${UserId}`;
+       const url = `${urls.clientUrl}/auth/reset-password?token=${token}&email=${email}&id=${UserId}`;
        await sendMail({to: email, subject: 'Password Recovery', html: emailTemplates.passwordReset(firstName, 'Password Recovery', url)});
 
        return res.status(201).json({record, message:"success"});
