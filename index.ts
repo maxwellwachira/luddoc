@@ -3,7 +3,6 @@ import cors from "cors";
 import fileUpload from 'express-fileupload';
 import path from "path";
 import dotenv from 'dotenv';
-
 //Sequelize Database Connector
 import { dbAuthenticate } from "./src/config/dbconfig";
 //Authentication Routes
@@ -54,6 +53,7 @@ app.use('/course', courseRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/enrolment', enrolmentRoutes);
 app.use('/daraja', mpesaRoutes);
+
 
 app.listen(port,() => {
     console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
