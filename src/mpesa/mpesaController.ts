@@ -4,13 +4,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+let callbackStatus = 'pending';
+
 const credentials = {
     clientKey: process.env.MPESA_CONSUMER_KEY as string,
     clientSecret: process.env.MPESA_CONSUMER_SECRET as string,
     initiatorPassword: process.env.MPESA_INITIATOR_PASSWORD as string
 };
 
-const baseUrl = 'https://51f3-105-160-7-19.in.ngrok.io';
+const baseUrl = 'https://backend.luddoc-institute.com';
 const urls = {
     QueueTimeOutURL: `${baseUrl}/daraja/b2c/queue`,
     ResultURL: `${baseUrl}/daraja/b2c/result`,
@@ -126,11 +128,40 @@ const lipaNaMpesaOnline = async (req: Request, res: Response) => {
     }
 }
 
+
+
 const callbackUrl = async (req: Request, res: Response) => {
+    callbackStatus = "pending";
     const response = req.body.Body.stkCallback;
-    console.log(response);
-    res.send(response);
+    if(Number(response.ResultCode) === 0){
+        //initate websocket with success message
+        callbackStatus = "success";
+    }else{
+        //initiate ws with error message
+        callbackStatus = "failed";
+    }
+    console.log(callbackStatus);
 }
+
+const paymentEvent = (req: Request, res: Response) => {
+    const SEND_INTERVAL = 2000;
+    
+    callbackStatus = "pending";
+
+    const headers = {
+      'Content-Type': 'text/event-stream',
+      'Connection': 'keep-alive',
+      'Cache-Control': 'no-cache'
+    };
+    res.writeHead(200, headers);
+
+    setInterval(() => {
+        res.write(`data: ${JSON.stringify(callbackStatus)}\n\n`);
+    }, SEND_INTERVAL);
+
+    res.write(`data: ${JSON.stringify(callbackStatus)}\n\n`);
+}
+
 
 const lipaNaMpesaQuery = async(req: Request, res: Response) => {
     const { checkoutRequestID } = req.body;
@@ -157,6 +188,7 @@ export {
     customerToBusiness,
     lipaNaMpesaQuery,
     lipaNaMpesaOnline,
+    paymentEvent,
     transactionStatus,
     validationUrl
 }

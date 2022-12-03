@@ -1,4 +1,4 @@
-import express from "express";
+import express, {Request} from "express";
 
 import {
     acountBalance,
@@ -7,12 +7,14 @@ import {
     customerToBusiness,
     lipaNaMpesaQuery,
     lipaNaMpesaOnline,
+    paymentEvent,
     transactionStatus,
     validationUrl
 } from "./mpesaController";
 
 import { validationMiddleware } from "../middleware/validationMiddleware";
 import mpesaValidator from "./mpesaValidator";
+
 
 const router = express.Router();
 
@@ -33,6 +35,9 @@ router.post('/callback', callbackUrl);
 router.post('/confirmation', confirmationUrl);
 //validation url, 
 router.post('/b2c/result', validationUrl);
+
+//payment event
+router.get('/payment-event', paymentEvent);
 
 
 export default router;
