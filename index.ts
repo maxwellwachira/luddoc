@@ -23,6 +23,8 @@ import uploadRoutes from "./src/lms/uploads/uploadsRoutes";
 import enrolmentRoutes from "./src/lms/enrolments/enrolmentRoutes";
 //Mpesa
 import mpesaRoutes from "./src/mpesa/mpesaRoutes";
+//Topics
+import topicRoutes from "./src/lms/topics/topicRoutes";
 
 dotenv.config();
 
@@ -53,6 +55,7 @@ app.use('/course', courseRoutes);
 app.use('/upload', uploadRoutes);
 app.use('/enrolment', enrolmentRoutes);
 app.use('/daraja', mpesaRoutes);
+app.use('/topic', topicRoutes);
 
 
 app.listen(port,() => {
