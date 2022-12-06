@@ -6,8 +6,8 @@ import { CourseModel } from '../courses/courseModel';
 interface TopicAttributes {
     id: number;
     CourseId: number;
-    title: string;
-    topicNumber: number
+    topicName: string;
+    topicNumber?: number
 }
 
 type TopicCreationAttributes = Optional<TopicAttributes, 'id'>;
@@ -23,7 +23,7 @@ TopicModel.init({
     autoIncrement: true,
     allowNull: false
    },
-   title:{
+   topicName:{
     type: DataTypes.STRING,
     allowNull: false,
    },
@@ -33,7 +33,7 @@ TopicModel.init({
    },
    topicNumber : {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
     field: "topic_number"
    }
 },{
