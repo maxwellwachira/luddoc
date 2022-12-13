@@ -5,6 +5,7 @@ import {
     findAllLessons,
     findLessonById,
     findLessonByTitle,
+    findLessonByTopic
 } from './lessonService';
 
 const createLesson = async (req: Request, res: Response) => {
@@ -51,7 +52,7 @@ const getAllLessonsInTopic = async (req: Request, res: Response) => {
 
     try {
         //Find lessons with pagination
-        const lessons = await findAllLessons(page, limit, Number(topicId));
+        const lessons = await findLessonByTopic(page, limit, Number(topicId));
         return res.status(200).json(lessons);
     } catch (error) {
         return res.status(500).json({message:"error", error});
