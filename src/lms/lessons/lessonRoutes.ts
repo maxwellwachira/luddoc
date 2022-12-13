@@ -3,6 +3,7 @@ import express from 'express';
 import {
     createLesson,
     getAllLessons,
+    getAllLessonsInTopic,
     getOneLesson,
     removeLesson,
     updateLesson
@@ -18,7 +19,7 @@ router.post('/', createLesson);
 //Get all lessons in a course
 router.get('/:courseId', getAllLessons);
 //get all lessons in a topic
-router.get('/topic/:topicId', getAllLessons);
+router.get('/topic/:topicId', getAllLessonsInTopic);
 //get one lesson
 router.get('/single-lesson/:id', getOneLesson);
 //update lesson
