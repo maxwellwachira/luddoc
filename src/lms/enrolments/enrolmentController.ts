@@ -84,7 +84,7 @@ const getEnrolmentByUserAndCourse = async(req: Request, res: Response) => {
     try {
         //check if enrolment exists
         const enrolment = await findEnrolmentByUserIdAndCourseId(Number(UserId), Number(CourseId));
-        if (enrolment) return res.status(200).json({exists: true});
+        if (enrolment) return res.status(200).json({exists: true, data: enrolment});
         return res.status(404).json({exists: false});
     } catch (error) {
         return res.status(500).json({message:"error", error});
